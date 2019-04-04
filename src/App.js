@@ -53,9 +53,6 @@ function App() {
         <option value="300">300</option>
       </select>
       <br />
-      <br />
-
-      {result}
 
       <Pagination
         currentPage={currentPage}
@@ -63,6 +60,9 @@ function App() {
         totalPages={totalPages}
         onPageChange={handleOnPageChange}
       />
+
+
+      {result}
     </div>
   )
 

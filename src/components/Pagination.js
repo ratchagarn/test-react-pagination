@@ -29,7 +29,7 @@ function Pagination({ currentPage, perPages, totalPages, onPageChange }) {
       {pages}
       <Pagination.Nav
         onClick={onNextClick}
-        isDisabled={currentPage === totalPages}
+        isDisabled={currentPage === probablePage}
       >
         Next »
       </Pagination.Nav>
@@ -39,14 +39,14 @@ function Pagination({ currentPage, perPages, totalPages, onPageChange }) {
   function onPrevClick() {
     if (currentPage === 1) { return }
 
-    const page = (currentPage - 1) < 1 ? 1 : currentPage - 1
+    const page = currentPage - 1 < 1 ? 1 : currentPage - 1
     onPageChange(page)
   }
 
   function onNextClick() {
-    if (totalPages === 1) { return }
+    if (currentPage === probablePage) { return }
 
-    const page = (currentPage + 1) > totalPages ? totalPages : currentPage + 1
+    const page = currentPage + 1 > probablePage ? probablePage : currentPage + 1
     onPageChange(page)
   }
 
