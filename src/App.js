@@ -10,7 +10,8 @@ import usePagination from './hooks/usePagination'
 function App() {
   const urlParams = new URLSearchParams(window.location.search)
   const page = Number(urlParams.get('page')) || 1
-  const initLimit = 100
+  const totalItems = 5000
+  const initLimit = 500
   const initOffset = (page - 1) * initLimit
 
   const {
@@ -43,7 +44,7 @@ function App() {
       <hr />
 
       <Label>Limit</Label>
-      <select onChange={handleOnChangeLimit}>
+      <select onChange={handleOnChangeLimit} value={initLimit}>
         <option value="100">100</option>
         <option value="150">150</option>
         <option value="300">300</option>
@@ -54,7 +55,7 @@ function App() {
       <Pagination
         offset={offset}
         limit={limit}
-        totalItems={5000}
+        totalItems={totalItems}
         onPageChange={handleOnPageChange}
       />
 

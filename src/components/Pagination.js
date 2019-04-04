@@ -10,7 +10,6 @@ function Pagination({
 }) {
   const pages = []
   const totalPages = Math.ceil(totalItems / limit)
-  console.log(totalItems, limit, totalPages)
 
   for (let page = 1; page <= totalPages; page++) {
     pages.push(
@@ -26,49 +25,54 @@ function Pagination({
 
   return (
     <Pagination.Container>
-      {/*<Pagination.Nav
+      {<Pagination.Nav
         onClick={onPrevClick}
-        isDisabled={offset <= limit}
+        isDisabled={offset < limit}
       >
         « Prev
-      </Pagination.Nav>*/}
+      </Pagination.Nav>}
       {pages}
-      {/*<Pagination.Nav
+      <Pagination.Nav
         onClick={onNextClick}
-        isDisabled={offset + limit > totalItems}
+        isDisabled={offset + limit >= totalItems}
       >
         Next »
-      </Pagination.Nav>*/}
+      </Pagination.Nav>
     </Pagination.Container>
   )
 
-  // function onPrevClick() {
-  //   if (currentPage === 1) { return }
-  //
-  //   const page = currentPage - 1 < 1 ? 1 : currentPage - 1
-  //   onPageChange(page)
-  // }
-  //
-  // function onNextClick() {
-  //   if (currentPage === totalPages) { return }
-  //
-  //   const page = currentPage + 1 > totalPages ? totalPages : currentPage + 1
-  //   onPageChange(page)
-  // }
+  function onPrevClick() {
+    const newOffset = offset - limit
+    if (newOffset < 0) { return }
+
+    const newPage = getPageFromOffset(newOffset)
+    onPageChange(newPage, newOffset)
+  }
+
+  function onNextClick() {
+    const newOffset = offset + limit
+    if (newOffset >= totalItems) { return }
+
+    const newPage = getPageFromOffset(newOffset)
+    onPageChange(newPage, newOffset)
+  }
 
   function onPageClick(page) {
     return () => {
-      onPageChange(page, getOffset(page))
+      onPageChange(page, getOffsetFromPage(page))
     }
   }
 
-  function getOffset(page) {
+  function getOffsetFromPage(page) {
     return (page - 1) * limit
+  }
+
+  function getPageFromOffset(newOffset) {
+    return (newOffset / limit) + 1
   }
 }
 
 Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
   offset: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
   onPageChange: PropTypes.func,

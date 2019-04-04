@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function TableDataFromApi({ data, perPages }) {
-  const rows = data.slice(0, perPages).map(item => (
+function TableDataFromApi({ data }) {
+  const rows = data.map(item => (
     <tr key={item.id}>
       <td>{item.id}</td>
       <td>{item.title}</td>
@@ -26,7 +26,6 @@ TableDataFromApi.propTypes = {
       title: PropTypes.string,
     })
   ).isRequired,
-  perPages: PropTypes.number.isRequired,
 }
 
 export default TableDataFromApi
