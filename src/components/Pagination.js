@@ -75,6 +75,7 @@ function Pagination({
 Pagination.propTypes = {
   offset: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
+  totalItems: PropTypes.number.isRequired,
   onPageChange: PropTypes.func,
 }
 

@@ -35,7 +35,8 @@ TableDataFromApi.Container = styled.table`
   border-collapse: collapse;
 
   td {
-    padding: 8px;
+    padding: 4px;
     border: 1px solid #ccc;
+    font-size: 12px;
   }
 `
