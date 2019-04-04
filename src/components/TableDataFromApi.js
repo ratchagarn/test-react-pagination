@@ -22,7 +22,7 @@ function TableDataFromApi({ data, perPages }) {
 TableDataFromApi.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       title: PropTypes.string,
     })
   ).isRequired,

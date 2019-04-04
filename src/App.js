@@ -10,13 +10,14 @@ import usePagination from './hooks/usePagination'
 function App() {
   const {
     currentPage,
-    perPages,
-    totalPages,
     setCurrentPage,
+    perPages,
+    setPerPages,
+    totalPages,
+    setTotalPages,
   } = usePagination(1, 5, 50)
 
   const [data, loading, error] = useDataFromApi('photos', {
-    albumId: 1,
     _start: (currentPage - 1) * perPages,
     _limit: totalPages,
   })
@@ -38,6 +39,22 @@ function App() {
       <h1>Simple Pagination</h1>
       <hr />
 
+      <Label>PerPages</Label>
+      <select onChange={handleOnChangePerPages}>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+      {' '}
+      <Label>totalPages</Label>
+      <select onChange={handleOnChangeTotalPages}>
+        <option value="50">50</option>
+        <option value="150">150</option>
+        <option value="300">300</option>
+      </select>
+      <br />
+      <br />
+
       {result}
 
       <Pagination
@@ -49,8 +66,24 @@ function App() {
     </div>
   )
 
+  function handleOnChangePerPages(e) {
+    setPerPages(Number(e.target.value))
+    setCurrentPage(1)
+    pushStatePage(1)
+  }
+
+  function handleOnChangeTotalPages(e) {
+    setTotalPages(Number(e.target.value))
+    setCurrentPage(1)
+    pushStatePage(1)
+  }
+
   function handleOnPageChange(page) {
     setCurrentPage(page)
+    pushStatePage(page)
+  }
+
+  function pushStatePage(page) {
     window.history.pushState(null, null, `?page=${page}`)
   }
 }
@@ -67,4 +100,11 @@ const Error = styled.p`
   margin: 0;
   color: red;
   font-weight: bold;
+`
+
+const Label = styled.label`
+  display: inline-block;
+  margin-right: 4px;
+  font-weight: bold;
+  color: #333;
 `
