@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import './App.css'
 
 import Pagination from './components/Pagination'
+import TableDataFromApi from './components/TableDataFromApi'
 import useDataFromApi from './hooks/useDataFromApi'
 import usePagination from './hooks/usePagination'
 
@@ -29,31 +30,15 @@ function App() {
     result = <Loading>Loading...</Loading>
   }
   else if (!loading && data) {
-    const rows = data.slice(0, perPages).map(item => (
-      <tr key={item.id}>
-        <td>{item.id}</td>
-        <td>{item.title}</td>
-      </tr>
-    ))
-
-    result = (
-      <table>
-        <tbody>
-          {rows}
-        </tbody>
-      </table>
-    )
+    result = <TableDataFromApi data={data} perPages={perPages} />
   }
 
   return (
     <div className="container">
       <h1>Simple Pagination</h1>
       <hr />
-      <br />
 
       {result}
-
-      <br />
 
       <Pagination
         currentPage={currentPage}
