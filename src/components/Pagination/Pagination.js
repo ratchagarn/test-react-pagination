@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function Pagination({ currentPage, perPage, totalPages, onPageChange }) {
+function Pagination({ currentPage, perPages, totalPages, onPageChange }) {
   const pages = []
-  const probablePage = Math.ceil(totalPages / perPage)
+  const probablePage = Math.ceil(totalPages / perPages)
 
   for (let page = 1; page <= probablePage; page++) {
     pages.push(
@@ -33,7 +33,7 @@ function Pagination({ currentPage, perPage, totalPages, onPageChange }) {
 
 Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
-  perPage: PropTypes.number.isRequired,
+  perPages: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   onPageChange: PropTypes.func,
 }

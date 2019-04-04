@@ -1,23 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import './App.css'
 
 import Pagination from './components/Pagination/Pagination'
-import useDataFromApi from './components/Pagination/useDataFromApi'
+import useDataFromApi from './hooks/useDataFromApi'
+import usePagination from './hooks/usePagination'
 
 function App() {
-  const urlParams = new URLSearchParams(window.location.search)
-
-  const [currentPage, setCurrentPage] = useState(
-    Number(urlParams.get('page')) || 1
-  )
-
-  const perPage = 5
-  const totalPages = 50
+  const {
+    currentPage,
+    perPages,
+    totalPages,
+    setCurrentPage,
+  } = usePagination(1, 5, 50)
 
   const [data, loading, error] = useDataFromApi('photos', {
     albumId: 1,
-    _start: (currentPage - 1) * perPage,
+    _start: (currentPage - 1) * perPages,
     _limit: totalPages,
   })
 
@@ -30,7 +29,7 @@ function App() {
     result = <Loading>Loading...</Loading>
   }
   else if (!loading && data) {
-    const rows = data.slice(0, perPage).map(item => (
+    const rows = data.slice(0, perPages).map(item => (
       <tr key={item.id}>
         <td>{item.id}</td>
         <td>{item.title}</td>
@@ -58,7 +57,7 @@ function App() {
 
       <Pagination
         currentPage={currentPage}
-        perPage={perPage}
+        perPages={perPages}
         totalPages={totalPages}
         onPageChange={handleOnPageChange}
       />
