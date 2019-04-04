@@ -2,15 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function Pagination({ currentPage, perPages, totalItems, onPageChange }) {
+function Pagination({
+  offset,
+  limit,
+  totalItems,
+  onPageChange,
+}) {
   const pages = []
-  const totalPages = Math.ceil(totalItems / perPages)
+  const totalPages = Math.ceil(totalItems / limit)
+  console.log(totalItems, limit, totalPages)
 
   for (let page = 1; page <= totalPages; page++) {
     pages.push(
       <Pagination.Page
         key={`page-${page}`}
-        isActive={page === currentPage}
+        isActive={(page - 1) * limit === offset}
         onClick={onPageClick(page)}
       >
         {page}
@@ -20,47 +26,51 @@ function Pagination({ currentPage, perPages, totalItems, onPageChange }) {
 
   return (
     <Pagination.Container>
-      <Pagination.Nav
+      {/*<Pagination.Nav
         onClick={onPrevClick}
-        isDisabled={currentPage === 1}
+        isDisabled={offset <= limit}
       >
         « Prev
-      </Pagination.Nav>
+      </Pagination.Nav>*/}
       {pages}
-      <Pagination.Nav
+      {/*<Pagination.Nav
         onClick={onNextClick}
-        isDisabled={currentPage === totalPages}
+        isDisabled={offset + limit > totalItems}
       >
         Next »
-      </Pagination.Nav>
+      </Pagination.Nav>*/}
     </Pagination.Container>
   )
 
-  function onPrevClick() {
-    if (currentPage === 1) { return }
-
-    const page = currentPage - 1 < 1 ? 1 : currentPage - 1
-    onPageChange(page)
-  }
-
-  function onNextClick() {
-    if (currentPage === totalPages) { return }
-
-    const page = currentPage + 1 > totalPages ? totalPages : currentPage + 1
-    onPageChange(page)
-  }
+  // function onPrevClick() {
+  //   if (currentPage === 1) { return }
+  //
+  //   const page = currentPage - 1 < 1 ? 1 : currentPage - 1
+  //   onPageChange(page)
+  // }
+  //
+  // function onNextClick() {
+  //   if (currentPage === totalPages) { return }
+  //
+  //   const page = currentPage + 1 > totalPages ? totalPages : currentPage + 1
+  //   onPageChange(page)
+  // }
 
   function onPageClick(page) {
     return () => {
-      onPageChange(page)
+      onPageChange(page, getOffset(page))
     }
+  }
+
+  function getOffset(page) {
+    return (page - 1) * limit
   }
 }
 
 Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
-  perPages: PropTypes.number.isRequired,
-  totalItems: PropTypes.number.isRequired,
+  offset: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
   onPageChange: PropTypes.func,
 }
 

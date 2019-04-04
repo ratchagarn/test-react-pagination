@@ -1,20 +1,14 @@
 import { useState } from 'react'
 
-function usePagination(initPage = 1, perPages = 10, totalItems = 100) {
-  const urlParams = new URLSearchParams(window.location.search)
-  const [currentPage, setCurrentPage] = useState(
-    Number(urlParams.get('page')) || initPage
-  )
-  const [_perPages, setPerPages] = useState(perPages)
-  const [_totalItems, setTotalItems] = useState(totalItems)
+function usePagination(initOffset = 0, initLimit = 10) {
+  const [offset, setOffset] = useState(initOffset)
+  const [limit, setlimit] = useState(initLimit)
 
   return {
-    currentPage,
-    setCurrentPage,
-    perPages: _perPages,
-    setPerPages,
-    totalItems: _totalItems,
-    setTotalItems,
+    offset,
+    setOffset,
+    limit,
+    setlimit,
   }
 }
 
