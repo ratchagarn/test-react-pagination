@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import './App.css'
 
-import Pagination from './components/Pagination/Pagination'
+import Pagination from './components/Pagination'
 import useDataFromApi from './hooks/useDataFromApi'
 import usePagination from './hooks/usePagination'
 
