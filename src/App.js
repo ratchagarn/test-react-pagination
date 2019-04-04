@@ -6,7 +6,16 @@ import Pagination from './components/Pagination/Pagination'
 import useDataFromApi from './components/Pagination/useDataFromApi'
 
 function App() {
+<<<<<<< HEAD
   const [currentPage, setCurrentPage] = useState(1)
+=======
+  const urlParams = new URLSearchParams(window.location.search)
+
+  const [currentPage, setCurrentPage] = useState(
+    Number(urlParams.get('page')) || 1
+  )
+
+>>>>>>> Init app
   const perPage = 5
   const totalPages = 50
 
@@ -62,6 +71,10 @@ function App() {
 
   function handleOnPageChange(page) {
     setCurrentPage(page)
+<<<<<<< HEAD
+=======
+    window.history.pushState(null, null, `?page=${page}`)
+>>>>>>> Init app
   }
 }
 
