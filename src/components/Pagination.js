@@ -2,11 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-function Pagination({ currentPage, perPages, totalPages, onPageChange }) {
+function Pagination({ currentPage, perPages, totalItems, onPageChange }) {
   const pages = []
-  const probablePage = Math.ceil(totalPages / perPages)
+  const totalPages = Math.ceil(totalItems / perPages)
 
-  for (let page = 1; page <= probablePage; page++) {
+  for (let page = 1; page <= totalPages; page++) {
     pages.push(
       <Pagination.Page
         key={`page-${page}`}
@@ -29,7 +29,7 @@ function Pagination({ currentPage, perPages, totalPages, onPageChange }) {
       {pages}
       <Pagination.Nav
         onClick={onNextClick}
-        isDisabled={currentPage === probablePage}
+        isDisabled={currentPage === totalPages}
       >
         Next »
       </Pagination.Nav>
@@ -44,9 +44,9 @@ function Pagination({ currentPage, perPages, totalPages, onPageChange }) {
   }
 
   function onNextClick() {
-    if (currentPage === probablePage) { return }
+    if (currentPage === totalPages) { return }
 
-    const page = currentPage + 1 > probablePage ? probablePage : currentPage + 1
+    const page = currentPage + 1 > totalPages ? totalPages : currentPage + 1
     onPageChange(page)
   }
 
@@ -60,7 +60,7 @@ function Pagination({ currentPage, perPages, totalPages, onPageChange }) {
 Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   perPages: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired,
+  totalItems: PropTypes.number.isRequired,
   onPageChange: PropTypes.func,
 }
 

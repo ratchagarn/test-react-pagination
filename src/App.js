@@ -13,13 +13,13 @@ function App() {
     setCurrentPage,
     perPages,
     setPerPages,
-    totalPages,
-    setTotalPages,
+    totalItems,
+    setTotalItems,
   } = usePagination(1, 5, 50)
 
   const [data, loading, error] = useDataFromApi('photos', {
     _start: (currentPage - 1) * perPages,
-    _limit: totalPages,
+    _limit: totalItems,
   })
 
   let result
@@ -46,8 +46,8 @@ function App() {
         <option value="20">20</option>
       </select>
       {' '}
-      <Label>totalPages</Label>
-      <select onChange={handleOnChangeTotalPages}>
+      <Label>totalItems</Label>
+      <select onChange={handleOnChangeTotalItems}>
         <option value="50">50</option>
         <option value="150">150</option>
         <option value="300">300</option>
@@ -57,7 +57,7 @@ function App() {
       <Pagination
         currentPage={currentPage}
         perPages={perPages}
-        totalPages={totalPages}
+        totalItems={totalItems}
         onPageChange={handleOnPageChange}
       />
 
@@ -72,8 +72,8 @@ function App() {
     pushStatePage(1)
   }
 
-  function handleOnChangeTotalPages(e) {
-    setTotalPages(Number(e.target.value))
+  function handleOnChangeTotalItems(e) {
+    setTotalItems(Number(e.target.value))
     setCurrentPage(1)
     pushStatePage(1)
   }
